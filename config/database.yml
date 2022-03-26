@@ -82,5 +82,5 @@ test:
 production:
   <<: *default
   database: fintech_aiep_production
-  username: fintech_aiep
-  password: <%= ENV['FINTECH_AIEP_DATABASE_PASSWORD'] %>
+  username: postgres
+  password: ''

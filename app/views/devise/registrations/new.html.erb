@@ -1,0 +1,102 @@
+<div class="row">
+<div class="col-md-4">
+  <div class="card card-user">
+      <div class="card-header">
+        <h2>Registro</h2>
+      </div>
+      <div class="card-body">
+        <%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
+          <%= render "devise/shared/error_messages", resource: resource %>
+
+          <div class="form-group">
+            <%= f.label 'Nombre' %><br />
+            <%= f.text_field :fname, autofocus: true, autocomplete: "text", class: 'form-control', required: 'true' %>
+          </div>
+
+          <div class="form-group">
+            <%= f.label 'Apellido' %><br />
+            <%= f.text_field :lname, autofocus: true, autocomplete: "text", class: 'form-control', required: 'true'  %>
+          </div>
+
+
+          <div class="form-check">
+            <%= f.radio_button :role, "prestamista" %>
+            <%= f.label :role_prestamista, "Deseo Prestar mi dinero", class: 'form-check-label', required: 'true'  %>
+        </div>
+
+        <div class="form-check">
+            <%= f.radio_button :role, "prestatario" %>
+            <%= f.label :role_prestatario, "Necesito que me presten dinero", class: 'form-check-label', required: 'true'  %>
+        </div>
+
+          <div class="form-group">
+            <%= f.label 'Fondos' %><br />
+            <div class="input-group mb-2">
+              <div class="input-group-prepend">
+                <div class="input-group-text">$</div>
+              </div>
+            <%= f.number_field  :money, autofocus: true, autocomplete: "number", class: 'form-control', required: 'true'  %>
+          </div>
+          </div>
+
+          <div class="form-group prestame d-none">
+            <%= f.label 'Necesito dinero para:' %><br />
+            <%= f.text_field :usage, autofocus: true, autocomplete: "text", class: 'form-control adic_prestatario' %>
+          </div>
+
+          <div class="form-group prestame d-none">
+            <%= f.label 'Descripción:' %><br />
+            <%= f.text_area :description, autofocus: true, autocomplete: "text-area", class: 'form-control adic_prestatario' %>
+          </div>
+
+          <div class="form-group">
+            <%= f.label :email %><br />
+            <%= f.email_field :email, autofocus: true, autocomplete: "text", class: 'form-control' %>
+          </div>
+
+            <div class="form-group">
+                <%= f.label 'Contraseña' %>
+                <%= f.password_field :password, autocomplete: "new-password", class: 'form-control' %>
+                <% if @minimum_password_length %>
+                  <small>(<%= @minimum_password_length %> caracteres minimo)</small>
+                <% end %>
+            </div>
+
+            <div class="form-group">
+              <%= f.label 'Repite Contraseña' %><br />
+              <%= f.password_field :password_confirmation, autocomplete: "new-password", class: 'form-control' %>
+            </div>
+
+            <div class="row">
+              <div class="update ml-auto mr-auto">
+                  <%= f.submit "Registrarme", class: 'btn btn-primary btn-round' %>
+              </div>
+            </div>
+        <% end %>
+
+      <%= render "devise/shared/links" %>
+      </div>   
+    </div>
+</div>
+    
+</div>
+<% content_for :script do %>
+  <script>
+    $('form :radio').on('click', function () {
+      if ($(this).val() == 'prestamista') {
+        if (!($('.prestame').hasClass('d-none'))) {
+          $('.prestame').addClass('d-none')
+          $('.adic_prestatario').prop('required', false)
+        }
+      }else {
+        if ($('.prestame').hasClass('d-none')) {
+          $('.prestame').removeClass('d-none')
+          $('.adic_prestatario').prop('required', true)
+        }
+      }
+    })
+  </script>
+<% end %>
+
+
+

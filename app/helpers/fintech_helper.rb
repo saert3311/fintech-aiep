@@ -1,0 +1,2 @@
+module FintechHelper
+end

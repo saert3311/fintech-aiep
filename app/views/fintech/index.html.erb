@@ -1,0 +1,7 @@
+<% if current_user.role == 'prestamista'%>
+<%= render 'prestamista' %>
+<% end %>
+
+<% if current_user.role == 'prestatario'%>
+    <%= render 'prestatario' %>
+<% end %>
